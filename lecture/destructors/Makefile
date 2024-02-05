@@ -13,7 +13,7 @@ CXXFLAGS = -c -g -Wall -std=c++17
 PROGRAM = destroyDemo.out
 
 # list all .cpp files separated by space
-CPPFILES = destroyDemo.cpp
+CPPFILES = destroyDemo.cpp aclass.cpp bclass.cpp
 
 # make all rule/default rule that'll be run when we run "make"
 # first compile each file to object file

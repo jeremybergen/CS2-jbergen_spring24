@@ -12,6 +12,7 @@ class Fraction {
     private:
     int _numerator;
     int _denom;
+    
     public:
     Fraction();
     ~Fraction();
