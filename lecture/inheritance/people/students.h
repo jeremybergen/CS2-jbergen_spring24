@@ -13,9 +13,9 @@ namespace person {
         /*
         Student constructor
 
-        Student(id, course);
+        Student(id, course, name, age, height);
         */
-        Student(int = 0, string = "");
+        Student(int = 0, string = "", string = "NULL", int = 0, int = 0);
         void setCourse(string);
         void printStudent();
     };

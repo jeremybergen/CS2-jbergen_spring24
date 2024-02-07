@@ -13,6 +13,7 @@ namespace person {
 
         protected:
         string getName();
+        string getHeight();
 
         public:
         Person(string = "", int = 0, int = 0);
