@@ -18,6 +18,7 @@ class Car : public Vehicle {
     string _model;
 
     public:
+    // Car(model, brand, year) inherited from Vehicle
     Car(string = "", string = "", int = 0);
 };
 
@@ -26,15 +27,28 @@ class Hybrid : public Car {
     string _type;
 
     public:
+    // Hybrid(string type, string model, string brand, int year) : Car(model, brand, year)
     Hybrid(string = "", string = "", string = "", int = 0);
 };
 
 int main(int argc, char* argv[])
 {
+    Hybrid newHybrid("electric", "Prius", "Toyota", 2024);
+    // Hybrid h2("electric", "")
+
+    newHybrid.showInfo();
     return 0;
 }
 
-Hybrid(string = "", string = "", string = "", int = 0) : Car()
+/* This is the constructor for Hybrid
+   Takes in 3 strings and one int of the following names:
+   Hybrid(string type, string model, string brand, int year)
+   pass to Car(model, brand, year)
+*/
+Hybrid::Hybrid(string type, string model, string brand, int year) : Car(model, brand, year)
+{
+    _type = type;
+}
 
 Car::Car(string model, string brand, int year) : Vehicle(brand, year)
 {
