@@ -23,6 +23,7 @@ int main(int argc, char* argv[])
     cout << "DEBUG: &(*(sc1.setId(42))): " << &(*(sc1.setId(42))) << endl;
     cout << "DEBUG: &(*(*(sc1.setId(42))).setOtherId(15)): " << &(*(*(sc1.setId(42))).setOtherId(15)) << endl;
     (*(sc1.setId(42))).setOtherId(15);
+    sc1.setId(42)->setOtherId(15);
     // pointer returned
     // sc1.setOtherId(15)
   //this->setOtherId(15);
