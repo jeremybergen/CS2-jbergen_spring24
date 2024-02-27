@@ -9,46 +9,104 @@ struct Node
 };
 
 void printList(Node);
-void appendNode(Node, Node&);
+// void appendNode(Node*, Node*);
+void insertNode(Node*, Node*);
+void freeMem(Node*);
 
 int main(int argc, char* argv[])
 {
-    Node node1;
-    Node node2;
-    Node node3;
+    Node* node1 = new Node();
+    int numNodes;
 
-    node1.data = 42;
-    node2.data = 15;
-    node3.data = 9000;
+    cout << "How many numbers to you want to add? ";
+    cin >> numNodes;
 
-    node1.next = &node2;
-    node2.next = &node3;
+    cout << "Enter a number: ";
+    cin >> node1->data;
+    for(int i = 1; i < numNodes; i++)
+    {
+        Node* newNode = new Node();
+        // cout << "DEBUG: newNode: " << newNode << endl;
+        cout << "Enter a number: ";
+        cin >> newNode->data;
+        appendNode(node1, newNode);
+    }
+
+    printList(*node1);
+    // cout << "DEBUG: node1.data: " << node1.next->data << endl;
+    // cout << "DEBUG: node1.next: " << node1.next->next << endl;
+
+    // Node node1;
+    // Node node2;
+    // Node node3;
+
+    // node1.data = 42;
+    // node2.data = 15;
+    // node3.data = 9000;
+
+    // node1.next = &node2;
+    // node2.next = &node3;
 
     // cout << node1.data << endl;
     // cout << node1.next->data << endl;
     // cout << node1.next->next->data << endl;
-    printList(node1);
+    // printList(node1);
 
-    Node newNode;
-    appendNode(node1, newNode);
-    printList(node1);
+    // Node newNode;
+    // appendNode(&node1, &newNode);
+    // printList(node1);
+    freeMem(node1);
     return 0;
 }
 
-void appendNode(Node head, Node& newNode)
+void insertNode(Node* head, Node* newNode)
 {
-    // Node newNode;
-    Node* tmpNode = &head;
+    Node* curNode = head;
+    Node* nxtNode = head;
+    while(curNode->next != nullptr && newNode->data > curNode->next->data)
+    {
+        curNode = curNode->next;
+        nxtNode = nxtNode->next;
+    }
+
+    nxtNode = nxtNode->next;
+    curNode->next = newNode;
+    newNode->next = nxtNode;
+}
+
+void freeMem(Node* head)
+{
+    Node* tmpNode = head;
+    // Node* curNode = head;
     while(tmpNode->next != nullptr)
     {
+        Node* curNode = tmpNode;
         tmpNode = tmpNode->next;
+        // cout << "DELETING: " << endl;
+        // cout << "DEBUG: curNode->data: " << curNode->data << endl;
+        // cout << "DEBUG: curNode->next: " << curNode->next << endl;
+        // cout << "Next: " << endl;
+        // cout << "DEBUG: tmpNode->data: " << tmpNode->data << endl;
+        // cout << "DEBUG: tmpNode->next: " << tmpNode->next << endl;
+        delete curNode;
     }
-    // end of the list
-    
-    newNode.data = 8;
-    newNode.next = nullptr;
-    tmpNode->next = &newNode;
+    delete tmpNode;
 }
+
+// void appendNode(Node* head, Node* newNode)
+// {
+//     // Node newNode;
+//     Node* tmpNode = head;
+//     while(tmpNode->next != nullptr)
+//     {
+//         tmpNode = tmpNode->next;
+//     }
+//     // end of the list
+    
+//     // newNode->data = 8;
+//     // newNode->next = nullptr;
+//     tmpNode->next = newNode;
+// }
 
 void printList(Node head)
 {
