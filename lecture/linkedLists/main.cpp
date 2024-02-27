@@ -10,7 +10,9 @@ struct Node
 
 void printList(Node);
 // void appendNode(Node*, Node*);
-void insertNode(Node*, Node*);
+// void insertNode(Node*, Node*);
+void insertNode(Node**, Node**, Node**);
+Node* findLocation(Node*, int);
 void freeMem(Node*);
 
 int main(int argc, char* argv[])
@@ -26,10 +28,13 @@ int main(int argc, char* argv[])
     for(int i = 1; i < numNodes; i++)
     {
         Node* newNode = new Node();
+        Node* prevNode;
         // cout << "DEBUG: newNode: " << newNode << endl;
         cout << "Enter a number: ";
         cin >> newNode->data;
-        appendNode(node1, newNode);
+        // appendNode(node1, newNode);
+        prevNode = findLocation(node1, newNode->data);
+        insertNode(&prevNode, &newNode, &node1);
     }
 
     printList(*node1);
@@ -59,20 +64,55 @@ int main(int argc, char* argv[])
     return 0;
 }
 
-void insertNode(Node* head, Node* newNode)
+Node* findLocation(Node* head, int data)
 {
-    Node* curNode = head;
-    Node* nxtNode = head;
-    while(curNode->next != nullptr && newNode->data > curNode->next->data)
+    // list only has one entry
+    if(head->next == nullptr || head->data >= data)
     {
-        curNode = curNode->next;
-        nxtNode = nxtNode->next;
+        if(head->data > data)
+        {
+            return nullptr;
+        }
+        return head;
     }
 
-    nxtNode = nxtNode->next;
-    curNode->next = newNode;
-    newNode->next = nxtNode;
+    //list has more than one entry
+    while(head->next != nullptr && head->next->data < data)
+    {
+        head = head->next;
+    }
+
+    return head;
 }
+
+void insertNode(Node** prevNode, Node** newNode, Node** head)
+{
+    if((*prevNode) == nullptr)
+    {
+        (*(*newNode)).next = *head;
+        *head = *newNode;
+    }
+    else
+    {
+        (*newNode)->next = (*prevNode)->next;
+        (*prevNode)->next = *newNode;
+    }
+}
+
+// void insertNode(Node* head, Node* newNode)
+// {
+//     Node* curNode = head;
+//     Node* nxtNode = head;
+//     while(curNode->next != nullptr && newNode->data > curNode->next->data)
+//     {
+//         curNode = curNode->next;
+//         nxtNode = nxtNode->next;
+//     }
+
+//     nxtNode = nxtNode->next;
+//     curNode->next = newNode;
+//     newNode->next = nxtNode;
+// }
 
 void freeMem(Node* head)
 {
