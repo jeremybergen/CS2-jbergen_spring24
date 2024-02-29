@@ -12,6 +12,7 @@ void printList(Node);
 // void appendNode(Node*, Node*);
 // void insertNode(Node*, Node*);
 void insertNode(Node**, Node**, Node**);
+void deleteNode(Node**, int);
 Node* findLocation(Node*, int);
 void freeMem(Node*);
 
@@ -38,6 +39,8 @@ int main(int argc, char* argv[])
     }
 
     printList(*node1);
+    deleteNode(&node1, 123);
+    printList(*node1);
     // cout << "DEBUG: node1.data: " << node1.next->data << endl;
     // cout << "DEBUG: node1.next: " << node1.next->next << endl;
 
@@ -62,6 +65,32 @@ int main(int argc, char* argv[])
     // printList(node1);
     freeMem(node1);
     return 0;
+}
+
+void deleteNode(Node** head, int data)
+{
+    Node* prevNode = *head;
+    Node* curNode = *head;
+    while(curNode->next != nullptr && curNode->data != data)
+    {
+        prevNode = curNode;
+        curNode = curNode->next;
+    }
+
+    if(curNode->next == nullptr && curNode->data != data)
+    {
+        cout << "Element not found" << endl;
+    }
+    else if (curNode->next == nullptr)
+    {
+        prevNode->next = nullptr;
+        delete curNode;
+    }
+    else
+    {
+        prevNode->next = curNode->next;
+        delete curNode;
+    }
 }
 
 Node* findLocation(Node* head, int data)
