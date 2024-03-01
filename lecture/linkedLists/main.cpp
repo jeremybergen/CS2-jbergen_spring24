@@ -6,6 +6,7 @@ struct Node
 {
     int data;
     Node* next = nullptr;
+    // Node* prev = nullptr;
 };
 
 void printList(Node);
