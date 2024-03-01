@@ -180,11 +180,18 @@ void freeMem(Node* head)
 
 void printList(Node head)
 {
-    Node* tmpNode = &head;
-    while (tmpNode->next != nullptr)
+    cout << head.data;
+    if(head.next != nullptr)
     {
-        cout << tmpNode->data << " ";
-        tmpNode = tmpNode->next;
+        printList(*(head.next));
     }
-    cout << tmpNode->data << endl;
+    
+
+    // Node* tmpNode = &head;
+    // while (tmpNode->next != nullptr)
+    // {
+    //     cout << tmpNode->data << " ";
+    //     tmpNode = tmpNode->next;
+    // }
+    // cout << tmpNode->data << endl;
 }
