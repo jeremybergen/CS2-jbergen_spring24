@@ -1,4 +1,7 @@
 #pragma once
+// #ifndef TREE_H
+// #define TREE_H
+
 #include "node.h"
 #include <iostream>
 
@@ -9,11 +12,94 @@ class Tree
     Node<T1>* _root;
     Node<T1>* insertNode(Node<T1>*, T1);
     void inOrderPrint(Node<T1>*);
+    Node<T1>* searchData(Node<T1>*, T1);
+    Node<T1>* removeNode(Node<T1>*, T1);
+    Node<T1>* minVal(Node<T1>*);
 
     public:
     void insert(T1);
     void inOrder();
+    bool search(T1);
+    void remove(T1);
 };
+
+template <class T1>
+Node<T1>* Tree<T1>::removeNode(Node<T1>* root, T1 data)
+{
+    if(root == nullptr) return root;
+
+    if(data < root->getData())
+    {
+        root->setLeft(removeData(root->getLeft(), data));
+    }
+    else if(data > root->getData())
+    {
+        root->setRight(removeData(root->getRight(), data));
+    }
+    else
+    {
+        if(root->getLeft() == nullptr)
+        {
+            Node<T1>* tmpNode = root->getRight();
+            delete root;
+            return tmpNode;
+        }
+        else if(root->getRight() == nullptr)
+        {
+            Node<T1>* tmpNode = root->getLeft();
+            delete root;
+            return tmpNode;
+        }
+
+    }
+
+
+    return root;
+}
+
+template <class T1>
+Node<T1>* Tree<T1>::minVal(Node<T1>* root)
+{
+    Node<T1>* curNode = root;
+    while(curNode != nullptr && curNode->getLeft() != nullptr)
+    {
+        curNode = curNode->getLeft();
+    }
+    return curNode;
+}
+
+template <class T1>
+void Tree<T1>::remove(T1 data)
+{
+    _root = removeNode(_root, data);
+}
+
+template <class T1>
+bool Tree<T1>::search(T1 data)
+{
+    Node<T1>* foundNode;
+    foundNode = searchData(_root, data);
+    if(foundNode == nullptr)
+    {
+        return false;
+    }
+    return true;
+}
+
+template <class T1>
+Node<T1>* Tree<T1>::searchData(Node<T1>* root, T1 data)
+{
+    if(root == nullptr || root->getData() == data)
+    {
+        return root;
+    }
+
+    if(data < root->getData())
+    {
+        return searchData(root->getLeft(), data);
+    }
+    return searchData(root->getRight(), data);
+}
 
 template <class T1>
 void Tree<T1>::insert(T1 data)
@@ -58,3 +144,4 @@ void Tree<T1>::inOrder()
     inOrderPrint(_root);
     std::cout << std::endl;
 }
+// #endif
