@@ -5,7 +5,7 @@ using namespace std;
 
 int main(int argc, char* argv[])
 {
-    int numNodes = 5;
+    int numNodes = 8;
     int findNumber;
     bool result;
     Tree<int>* binaryTree = new Tree<int>();
@@ -25,6 +25,14 @@ int main(int argc, char* argv[])
     result = binaryTree->search(findNumber);
 
     cout << boolalpha << result << endl;
+
+    cout << "Which number do you want to delete? ";
+    cin >> findNumber;
+
+    binaryTree->remove(findNumber);
+    binaryTree->inOrder();
+
+    delete binaryTree;
 
     return 0;
 }

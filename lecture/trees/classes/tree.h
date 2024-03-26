@@ -15,13 +15,35 @@ class Tree
     Node<T1>* searchData(Node<T1>*, T1);
     Node<T1>* removeNode(Node<T1>*, T1);
     Node<T1>* minVal(Node<T1>*);
+    void destroyTree(Node<T1>*);
 
     public:
+    ~Tree();
     void insert(T1);
     void inOrder();
     bool search(T1);
     void remove(T1);
 };
+
+template <class T1>
+void Tree<T1>::destroyTree(Node<T1>* root)
+{
+    if(root == nullptr)
+    {
+        return;
+    }
+    destroyTree(root->getLeft());
+    destroyTree(root->getRight());
+    std::cout << "Freeing: " << &root << std::endl;
+    delete root;
+}
+
+template <class T1>
+Tree<T1>::~Tree()
+{
+    // destroyTree(_root);
+    if(_root != nullptr) delete _root;
+}
 
 template <class T1>
 Node<T1>* Tree<T1>::removeNode(Node<T1>* root, T1 data)
@@ -30,11 +52,11 @@ Node<T1>* Tree<T1>::removeNode(Node<T1>* root, T1 data)
 
     if(data < root->getData())
     {
-        root->setLeft(removeData(root->getLeft(), data));
+        root->setLeft(removeNode(root->getLeft(), data));
     }
     else if(data > root->getData())
     {
-        root->setRight(removeData(root->getRight(), data));
+        root->setRight(removeNode(root->getRight(), data));
     }
     else
     {
@@ -50,10 +72,11 @@ Node<T1>* Tree<T1>::removeNode(Node<T1>* root, T1 data)
             delete root;
             return tmpNode;
         }
+        Node<T1>* tmpNode = minVal(root->getRight());
 
+        root->setData(tmpNode->getData());
+        root->setRight(removeNode(root->getRight(), tmpNode->getData()));
     }
-
-
     return root;
 }
 

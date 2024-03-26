@@ -1,4 +1,5 @@
 #pragma once
+#include <iostream>
 
 template <class T1>
 class Node
@@ -10,6 +11,7 @@ class Node
 
     public:
     Node();
+    ~Node();
     void setData(T1);
     void setLeft(Node<T1>*);
     void setRight(Node<T1>*);
@@ -18,6 +20,14 @@ class Node
     Node<T1>* getLeft();
     Node<T1>* getRight();
 };
+
+template <class T1>
+Node<T1>::~Node()
+{
+    std::cout << "Deleting: " << this << std::endl;
+    if(_left != nullptr) delete _left;
+    if(_right != nullptr) delete _right;
+}
 
 // Can't set default value for data because we don't know what type T1 is yet...
 template <class T1>
