@@ -22,7 +22,7 @@ int main(int argc, char* argv[])
     auto start = chrono::system_clock::now();
     cout << "Searching array..." << endl;
     // bubbleSort(bubbleArray, arrSize);
-    if (linearSearch(array, 31415926535))
+    if (linearSearch(array, 1210))
     {
         cout << "Element found" << endl;
     }
@@ -33,7 +33,7 @@ int main(int argc, char* argv[])
     start = chrono::system_clock::now();
     cout << "Searching array..." << endl;
     // bubbleSort(bubbleArray, arrSize);
-    if (binarySearch(array, 31415926535, 0, array.size()-1))
+    if (binarySearch(array, 1210, 0, array.size()-1))
     {
         cout << "Element found" << endl;
     }
@@ -73,12 +73,13 @@ bool linearSearch(vector<long>& array, long data)
 
 void buildArray(vector<long> &array, int arrSize)
 {
-    srand(time(0));
+    // srand(time(0));
     for (int i = 0; i < arrSize; i++)
     {
         array.push_back(rand());
     }
     array.push_back(31415926535);
     sort(array.begin(), array.end());
+    // cout << "Middle: " << array.at(0) << endl;
 }
 
